@@ -54,6 +54,7 @@ def build_model(
         weights="imagenet",
     )
     base_model.trainable = base_trainable
+    print(f"!!!! BASE MODEL trainable: {base_model.trainable}")
 
     x = base_model(x, training=False)
     x = tf.keras.layers.GlobalAveragePooling2D(name="global_avg_pool")(x)
