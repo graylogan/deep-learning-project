@@ -42,16 +42,7 @@ def evaluate_run(run_dir: str) -> dict[str, Any]:
         use_augmentation=config.augmentation,
         base_trainable=config.base_trainable,
     )
-    # If a full model was saved, prefer loading it to ensure exact
-    # architecture and preprocessing match the training run.
-    final_model_path = run_path / "final_model.keras"
-    weights_path = run_path / "best.weights.h5"
-    if final_model_path.exists():
-        model = tf.keras.models.load_model(str(final_model_path))
-    else:
-        if not weights_path.exists():
-            raise FileNotFoundError(f"No saved weights or model found in: {run_path}")
-        model.load_weights(weights_path)
+    model.load_weights(run_path / "best.weights.h5")
 
     loss, accuracy = model.evaluate(bundle.test_ds, verbose=0)
 
