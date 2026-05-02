@@ -39,6 +39,7 @@ def build_model(
     if image_size in CANONICAL_SIZES:
         base_size = image_size
     elif image_size < CANONICAL_SIZES[0]:
+        print("!!! UPSCALING")
         base_size = CANONICAL_SIZES[0]
     else:
         # find smallest canonical >= image_size
