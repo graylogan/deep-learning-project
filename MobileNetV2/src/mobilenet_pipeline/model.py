@@ -27,29 +27,8 @@ def build_model(
 
     x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
 
-    # MobileNetV2 pretrained weights expect one of the canonical sizes.
-    # Strategy:
-    # - If the requested `image_size` is one of the canonical sizes, use it
-    #   directly so we don't resize (e.g., 128 or 224).
-    # - If `image_size` is smaller than the smallest canonical (e.g., 32),
-    #   upscale to the smallest canonical (96). This maps 32 -> 96.
-    # - Otherwise, pick the smallest canonical >= image_size, or the max if
-    #   none are larger.
-    CANONICAL_SIZES = [96, 128, 160, 192, 224]
-    if image_size in CANONICAL_SIZES:
-        base_size = image_size
-    elif image_size < CANONICAL_SIZES[0]:
-        base_size = CANONICAL_SIZES[0]
-    else:
-        # find smallest canonical >= image_size
-        larger = [s for s in CANONICAL_SIZES if s >= image_size]
-        base_size = larger[0] if larger else CANONICAL_SIZES[-1]
-
-    if base_size != image_size:
-        x = tf.keras.layers.Resizing(base_size, base_size, interpolation="bilinear", name=f"resize_to_{base_size}")(x)
-
     base_model = tf.keras.applications.MobileNetV2(
-        input_shape=(base_size, base_size, 3),
+        input_shape=(image_size, image_size, 3),
         include_top=False,
         weights="imagenet",
     )
