@@ -14,19 +14,6 @@ def build_model(
     inputs = tf.keras.Input(shape=(image_size, image_size, 3), name="image")
     x = inputs
 
-    if use_augmentation:
-        augmentation = tf.keras.Sequential(
-            [
-                tf.keras.layers.RandomFlip("horizontal"),
-                tf.keras.layers.RandomRotation(0.08),
-                tf.keras.layers.RandomZoom(0.15),
-            ],
-            name="augmentation",
-        )
-        x = augmentation(x)
-
-    x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
-
     # MobileNetV2 pretrained weights expect one of the canonical sizes.
     # Strategy:
     # - If the requested `image_size` is one of the canonical sizes, use it
@@ -47,6 +34,19 @@ def build_model(
 
     if base_size != image_size:
         x = tf.keras.layers.Resizing(base_size, base_size, interpolation="bilinear", name=f"resize_to_{base_size}")(x)
+
+    if use_augmentation:
+        augmentation = tf.keras.Sequential(
+            [
+                tf.keras.layers.RandomFlip("horizontal"),
+                tf.keras.layers.RandomRotation(0.08),
+                tf.keras.layers.RandomZoom(0.15),
+            ],
+            name="augmentation",
+        )
+        x = augmentation(x)
+
+    x = tf.keras.applications.mobilenet_v2.preprocess_input(x)
 
     base_model = tf.keras.applications.MobileNetV2(
         input_shape=(base_size, base_size, 3),
