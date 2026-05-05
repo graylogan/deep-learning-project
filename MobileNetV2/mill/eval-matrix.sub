@@ -4,9 +4,10 @@
 #SBATCH --time=0-01:30:00 
 #SBATCH --export=all
 #SBATCH --out=Mill-%j.out
+#SBATCH --partition=gpu
+#SBATCH --nodelist=gpu-42-00
 #SBATCH --mem=32000
 #SBATCH --gres=gpu:H100:1
-#SBATCH --partition=gpu
  
 # %j will substitute to the job's id
 #now run your executables just like you would in a shell script, Slurm will set the working directory as the directory the job was submitted from. 
@@ -18,4 +19,6 @@ module load cuda-toolkit/12.9
 source .venv/bin/activate
 which python3
 nvidia-smi
-python3 scripts/matrix.py --data-root ~/scratch/samples --size-dirs 32x32 128x128 224x224 --augment-options true --epochs 25 --output-dir ~/scratch/outputs 
+for run in ~/scratch/outputs/size*;
+  do python3 scripts/evaluate.py --run-dir "$run"
+done

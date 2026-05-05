@@ -4,9 +4,10 @@
 #SBATCH --time=0-01:30:00 
 #SBATCH --export=all
 #SBATCH --out=Mill-%j.out
+#SBATCH --partition=gpu
+#SBATCH --nodelist=gpu-42-00
 #SBATCH --mem=32000
 #SBATCH --gres=gpu:H100:1
-#SBATCH --partition=gpu
  
 # %j will substitute to the job's id
 #now run your executables just like you would in a shell script, Slurm will set the working directory as the directory the job was submitted from. 
