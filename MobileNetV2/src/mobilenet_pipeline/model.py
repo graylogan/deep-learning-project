@@ -38,8 +38,8 @@ def build_model(
     if use_augmentation:
         augmentation = tf.keras.Sequential(
             [
-                tf.keras.layers.RandomFlip("horizontal"),
-                # tf.keras.layers.RandomRotation(0.08),
+                tf.keras.layers.RandomFlip("horizontal")
+                # tf.keras.layers.RandomRotation(0.03)
                 # tf.keras.layers.RandomZoom(0.15),
             ],
             name="augmentation",
