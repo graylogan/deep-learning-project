@@ -31,7 +31,7 @@ def _list_image_paths(class_dir: Path) -> list[Path]:
     all_paths = [p for p in class_dir.iterdir() if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS]
     return sorted(all_paths)
 
-
+# This function was generated with help of Claude Haiku 4.5, edited for clarity and correctness
 def discover_dataset(dataset_dir: str | Path) -> tuple[list[str], list[Path], list[int]]:
     dataset_path = Path(dataset_dir)
     if not dataset_path.exists():
@@ -59,7 +59,7 @@ def discover_dataset(dataset_dir: str | Path) -> tuple[list[str], list[Path], li
 
     return class_names, image_paths, labels
 
-
+# This function was generated with help of Claude Haiku 4.5, edited for clarity and correctness
 def split_paths(
     image_paths: list[Path],
     labels: list[int],
@@ -103,7 +103,7 @@ def _load_image_py(path: bytes, image_size: int) -> np.ndarray:
         arr = np.asarray(img, dtype=np.float32)
     return arr
 
-
+# This function was generated with help of Claude Haiku 4.5, edited for clarity and correctness
 def _build_dataset(paths: list[str], labels: list[int], image_size: int, batch_size: int, shuffle: bool, seed: int) -> tf.data.Dataset:
     path_tensor = tf.constant(paths, dtype=tf.string)
     label_tensor = tf.constant(labels, dtype=tf.int32)

@@ -11,7 +11,7 @@ from .config import TrainConfig, dump_json
 from .data import create_datasets
 from .model import build_model
 
-
+# This function was generated with help of Claude Haiku 4.5
 def _make_run_dir(output_dir: str, run_name: str) -> Path:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     resolved_name = run_name if run_name else f"run_{timestamp}"

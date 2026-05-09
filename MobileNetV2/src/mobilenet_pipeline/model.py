@@ -14,6 +14,7 @@ def build_model(
     inputs = tf.keras.Input(shape=(image_size, image_size, 3), name="image")
     x = inputs
 
+    # scaling logic developed with help of Claude Haiku 4.5, edited for clarity and correctness
     # MobileNetV2 pretrained weights expect one of the canonical sizes.
     # Strategy:
     # - If the requested `image_size` is one of the canonical sizes, use it

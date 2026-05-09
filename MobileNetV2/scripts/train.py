@@ -13,7 +13,7 @@ if str(SRC_DIR) not in sys.path:
 from mobilenet_pipeline.config import TrainConfig
 from mobilenet_pipeline.train import run_training
 
-
+# Boilerplate argument parsing code created with help of Claude Haiku 4.5
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Train MobileNetV2 transfer model on a dataset folder.")
     parser.add_argument("--dataset-dir", required=True, help="Path to dataset directory (class subfolders).")
